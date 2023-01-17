@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "theme";
+import Login from "./scenes/login"
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
 import Products from "scenes/products";
@@ -26,6 +27,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+          <Route path="/login" element={<Login />} />
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
