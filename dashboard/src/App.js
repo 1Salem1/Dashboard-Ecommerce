@@ -1,3 +1,4 @@
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
@@ -17,17 +18,25 @@ import Monthly from "scenes/monthly";
 import Breakdown from "scenes/breakdown";
 import Admin from "scenes/admin";
 import Performance from "scenes/performance";
-
+import RequireAuth from "navigation/RequiredAuth";
 function App() {
+
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     <div className="app">
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Routes>
-          <Route path="/login" element={<Login />} />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+    <Routes>
+        {/* public routes */}
+        <Route path="login" element={<Login />} />
+
+        {/* protected routes */}
+        <Route element={<RequireAuth />}>
+    
+       
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -42,11 +51,15 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/performance" element={<Performance />} />
             </Route>
-          </Routes>
-        </ThemeProvider>
+
+
+        </Route>
+
+    </Routes>
+    </ThemeProvider>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App;
